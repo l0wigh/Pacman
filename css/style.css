@@ -18,5 +18,11 @@
 }
 
 .pacman{
+	background: black;
 	background-image: url(../myIMG/pacman-right.png)
+}
+
+.ghost{
+	background: black;
+	background-image: url(../myIMG/ghost.png)
 }

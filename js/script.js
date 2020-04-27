@@ -29,6 +29,8 @@ function show(){
 	for(lignes in maGrille){
 		for(bloc in maGrille[lignes]){
 			let div = document.createElement("div");
+			x = parseInt(lignes) + 1
+			y = parseInt(bloc) + 1
 			if(maGrille[lignes][bloc] == 0){
 				div.classList.add("mur");
 			}
@@ -38,8 +40,30 @@ function show(){
 			else if(maGrille[lignes][bloc] == 2){
 				div.classList.add("bonbon");
 			}
+			div.style.gridColumn = y;
+			div.style.gridRow = x;
 			container.appendChild(div);
 		}
 	}
+}
+
+function showpacman(){
+	let pac = document.createElement("div");
+	pac.classList.add("pacman")
+	pac.style.gridColumn = pacman.x;
+	pac.style.gridRow = pacman.y;
+	container.appendChild(pac)
+}
+
+let pacman = {
+	y:2,
+	x:5,
+	direction:1
+}
+
+function refresh(){
+	show();
+	showpacman();
+	//setTimeout(refresh, 1000)
 }
 
