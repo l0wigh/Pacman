@@ -1,4 +1,4 @@
-.container{
+#container{
 	display: grid;
 	grid-template-columns: repeat(19, 40px);
 	grid-template-rows: repeat(22, 40px);
@@ -13,5 +13,6 @@
 }
 
 .bonbon{
-	background-image: url(../img/bonbon.gif)
+	background: black;
+	background-image: url(../img/bonbon.gif);
 }
