@@ -7,7 +7,7 @@ let maGrille = [
 	[0,2,0,0,2,0,2,0,0,0,0,0,2,0,2,0,0,2,0],
 	[0,2,2,2,2,0,2,2,2,0,2,2,2,0,2,2,2,2,0],
 	[0,0,0,0,2,0,0,0,2,0,2,0,0,0,2,0,0,0,0],
-	[0,1,1,0,2,0,2,2,2,1,2,2,2,0,2,0,1,1,0],
+	[0,1,1,0,2,0,2,2,2,2,2,2,2,0,2,0,1,1,0],
 	[0,0,0,0,2,0,2,0,0,1,0,0,2,0,2,0,0,0,0],
 	[2,2,2,2,2,2,2,0,1,1,1,0,2,2,2,2,2,2,2],
 	[0,0,0,0,2,0,2,0,0,1,0,0,2,0,2,0,0,0,0],
@@ -25,18 +25,21 @@ let maGrille = [
 
 let container = document.getElementById("container");
 
-for(lignes in maGrille){
-	for(bloc in maGrille[lignes]){
-		let div = document.createElement("div");
-		if(maGrille[lignes][bloc] == 0){
-			div.classList.add("mur");
+function show(){
+	for(lignes in maGrille){
+		for(bloc in maGrille[lignes]){
+			let div = document.createElement("div");
+			if(maGrille[lignes][bloc] == 0){
+				div.classList.add("mur");
+			}
+			else if(maGrille[lignes][bloc] == 1){
+				div.classList.add("sol");
+			}
+			else if(maGrille[lignes][bloc] == 2){
+				div.classList.add("bonbon");
+			}
+			container.appendChild(div);
 		}
-		else if(maGrille[lignes][bloc] == 1){
-			div.classList.add("sol");
-		}
-		else if(maGrille[lignes][bloc] == 2){
-			div.classList.add("bonbon");
-		}
-		container.appendChild(div);
 	}
 }
+

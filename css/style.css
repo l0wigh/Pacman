@@ -9,10 +9,14 @@
 }
 
 .mur{
-	background: blue;
+	background-image: url(../myIMG/wall.png)
 }
 
 .bonbon{
 	background: black;
-	background-image: url(../img/bonbon.gif);
+	background-image: url(../myIMG/coin.png);
+}
+
+.pacman{
+	background-image: url(../myIMG/pacman-right.png)
 }
