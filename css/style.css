@@ -1,0 +1,17 @@
+.container{
+	display: grid;
+	grid-template-columns: repeat(19, 40px);
+	grid-template-rows: repeat(22, 40px);
+}
+
+.sol{
+	background: black;
+}
+
+.mur{
+	background: blue;
+}
+
+.bonbon{
+	background-image: url(../img/bonbon.gif)
+}
