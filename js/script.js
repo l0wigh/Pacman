@@ -29,8 +29,8 @@ function show(){
 	for(lignes in maGrille){
 		for(bloc in maGrille[lignes]){
 			let div = document.createElement("div");
-			y = parseInt(lignes) + 1
-			x = parseInt(bloc) + 1
+			y = parseInt(lignes) + 1;
+			x = parseInt(bloc) + 1;
 			if(maGrille[lignes][bloc] == 0){
 				div.classList.add("mur");
 			}
