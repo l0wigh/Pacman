@@ -25,7 +25,10 @@ let maGrille = [
 
 let container = document.getElementById("container");
 let points = 0;
+let bonbon = 1145;
+let win = 0;
 let fantomemove = ["lol", "r", "l", "t", "b"];
+
 let fantomelist = {
 	fan1:{
 		x:10,
@@ -52,17 +55,17 @@ let fantomelist = {
 function show(){
 	container.innerHTML = "";
 	for(lignes in maGrille){
-		for(bloc in maGrille[lignes]){
+		for(block in maGrille[lignes]){
 			let div = document.createElement("div");
 			y = parseInt(lignes) + 1;
-			x = parseInt(bloc) + 1;
-			if(maGrille[lignes][bloc] == 0){
+			x = parseInt(block) + 1;
+			if(maGrille[lignes][block] == 0){
 				div.classList.add("mur");
 			}
-			else if(maGrille[lignes][bloc] == 1){
+			else if(maGrille[lignes][block] == 1){
 				div.classList.add("sol");
 			}
-			else if(maGrille[lignes][bloc] == 2){
+			else if(maGrille[lignes][block] == 2){
 				div.classList.add("bonbon");
 			}
 			div.style.gridColumn = x;
@@ -204,6 +207,24 @@ function refreshPoints(){
 	document.getElementById("point").innerHTML = "Points : " + points
 }
 
+function winningCondition(){
+	if (bonbon == 1145){
+		bonbon = 0;
+		for(lignes in maGrille){
+			for(block in maGrille[lignes]){
+				if(maGrille[lignes][block] == 2){
+					bonbon++;
+				}
+			}
+		}
+	}
+	if (points == bonbon){
+		pacman.x = 1;
+		pacman.y = 1;
+		win = 1
+	}
+}
+
 let pacman = {
 	y:17,
 	x:10,
@@ -211,7 +232,13 @@ let pacman = {
 }
 
 function refresh(){
-	if (pacman.x != 1 && pacman.y != 1){
+	if (pacman.y == 1 && pacman.x == 1 && win == 0){
+		document.getElementById("mort").innerHTML = "Vous avez perdu";
+	}
+	else if(pacman.y == 1 && pacman.x == 1 && win == 1){
+		document.getElementById("mort").innerHTML = "Vous avez perdu";
+	}
+	else{
 		window.addEventListener("keydown", changeDirection, false);
 		positionpacman();
 		pacHittingFan();
@@ -221,10 +248,8 @@ function refresh(){
 		showpacman();
 		showfantome();
 		refreshPoints();
+		winningCondition();
 		setTimeout(refresh,250)
-	}
-	else{
-		document.getElementById("mort").innerHTML = "Vous avez perdu";
 	}
 }
 
