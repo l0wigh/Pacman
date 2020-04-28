@@ -25,6 +25,29 @@ let maGrille = [
 
 let container = document.getElementById("container");
 let points = 0;
+let fantomemove = ["lol", "r", "l", "t", "b"];
+let fantomelist = {
+	fan1:{
+		x:10,
+		y:10,
+		direction:"t"
+	},
+	fan2:{
+		x:10,
+		y:12,
+		direction:"b"
+	},
+	fan3:{
+		x:11,
+		y:11,
+		direction:"l"
+	},
+	fan4:{
+		x:9,
+		y:11,
+		direction:"r"
+	},
+}
 
 function show(){
 	container.innerHTML = "";
@@ -70,6 +93,17 @@ function showpacman(){
 	container.appendChild(pac)
 }
 
+function showfantome(){
+	for(ghost in fantomelist){
+		let fantomeA = fantomelist[ghost];
+		let fan = document.createElement("div");
+		fan.classList.add("ghost")
+		fan.style.gridColumn = fantomeA.x;
+		fan.style.gridRow = fantomeA.y;
+		container.appendChild(fan)
+	}
+}
+
 function positionpacman(){
 	if(maGrille[pacman.y-1][pacman.x-1] == 2){
 		points++;
@@ -105,6 +139,52 @@ function positionpacman(){
 	}
 }
 
+function positionfantome(){
+	for(ghost in fantomelist){
+		let fantomeA = fantomelist[ghost];
+		fantomeA.direction = fantomemove[Math.ceil(Math.random() * 4)]
+		if(fantomeA.direction == "l" && fantomeA.x-1 == 0){
+			fantomeA.x = 20
+		}
+		else if(fantomeA.direction == "r" && fantomeA.x == 19){
+			fantomeA.x = 0
+		}
+		switch(fantomeA.direction){
+			case "r":
+				if(maGrille[fantomeA.y-1][fantomeA.x] != 0){
+					fantomeA.x++;
+				}
+				break;
+			case "l":
+				if(maGrille[fantomeA.y-1][fantomeA.x-2] != 0){
+					fantomeA.x--;
+				}
+				break;
+			case "t":
+				if(maGrille[fantomeA.y-2][fantomeA.x-1] != 0){
+					fantomeA.y--;
+				}
+				break;
+			case "b":
+				if(maGrille[fantomeA.y][fantomeA.x-1] != 0){
+					fantomeA.y++;
+				}
+				break;
+		}
+	}
+}
+
+function pacHittingFan(){
+	for(ghost in fantomelist){
+		let fantomeA = fantomelist[ghost];
+		if(pacman.x == fantomeA.x && pacman.y == fantomeA.y){
+			pacman.x = 1;
+			pacman.y = 1;
+		}
+	}
+}
+
+
 function changeDirection(key){
 	if(key.keyCode == "37"){
 		pacman.direction = "l";
@@ -131,11 +211,20 @@ let pacman = {
 }
 
 function refresh(){
-	window.addEventListener("keydown", changeDirection, false);
-	positionpacman();
-	show();
-	showpacman();
-	refreshPoints();
-	setTimeout(refresh, 200)
+	if (pacman.x != 1 && pacman.y != 1){
+		window.addEventListener("keydown", changeDirection, false);
+		positionpacman();
+		pacHittingFan();
+		positionfantome();
+		pacHittingFan();
+		show();
+		showpacman();
+		showfantome();
+		refreshPoints();
+		setTimeout(refresh,250)
+	}
+	else{
+		document.getElementById("mort").innerHTML = "Vous avez perdu";
+	}
 }
 
