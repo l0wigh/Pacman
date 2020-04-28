@@ -27,6 +27,7 @@ let container = document.getElementById("container");
 let points = 0;
 
 function show(){
+	container.innerHTML = "";
 	for(lignes in maGrille){
 		for(bloc in maGrille[lignes]){
 			let div = document.createElement("div");
@@ -74,6 +75,12 @@ function positionpacman(){
 		points++;
 		maGrille[pacman.y-1][pacman.x-1] = 1;
 	}
+	if(pacman.direction == "l" && pacman.x-1 == 0){
+		pacman.x = 20
+	}
+	else if(pacman.direction == "r" && pacman.x == 19){
+		pacman.x = 0
+	}
 	switch(pacman.direction){
 		case "r":
 			if(maGrille[pacman.y-1][pacman.x] != 0){
@@ -95,12 +102,6 @@ function positionpacman(){
 				pacman.y++;
 			}
 			break;
-	}
-	if(pacman.direction == "l" && pacman.y == 11 && pacman.x == 0){
-		pacman.x = 19
-	}
-	else if(pacman.direction == "r" && pacman.y == 11 && pacman.x == 17){
-		pacman.x = 0
 	}
 }
 
@@ -135,6 +136,6 @@ function refresh(){
 	show();
 	showpacman();
 	refreshPoints();
-	setTimeout(refresh, 1000)
+	setTimeout(refresh, 200)
 }
 
