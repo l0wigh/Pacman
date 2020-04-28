@@ -24,6 +24,7 @@ let maGrille = [
 ];
 
 let container = document.getElementById("container");
+let points = 0;
 
 function show(){
 	for(lignes in maGrille){
@@ -49,21 +50,91 @@ function show(){
 
 function showpacman(){
 	let pac = document.createElement("div");
-	pac.classList.add("pacman")
+	switch(pacman.direction){
+		case "r":
+			pac.classList.add("pacmanr");
+			break;
+		case "l":
+			pac.classList.add("pacmanl");
+			break;
+		case "t":
+			pac.classList.add("pacmant");
+			break;
+		case "b":
+			pac.classList.add("pacmanb");
+			break;
+	}
 	pac.style.gridColumn = pacman.x;
 	pac.style.gridRow = pacman.y;
 	container.appendChild(pac)
 }
 
+function positionpacman(){
+	if(maGrille[pacman.y-1][pacman.x-1] == 2){
+		points++;
+		maGrille[pacman.y-1][pacman.x-1] = 1;
+	}
+	switch(pacman.direction){
+		case "r":
+			if(maGrille[pacman.y-1][pacman.x] != 0){
+				pacman.x++;
+			}
+			break;
+		case "l":
+			if(maGrille[pacman.y-1][pacman.x-2] != 0){
+				pacman.x--;
+			}
+			break;
+		case "t":
+			if(maGrille[pacman.y-2][pacman.x-1] != 0){
+				pacman.y--;
+			}
+			break;
+		case "b":
+			if(maGrille[pacman.y][pacman.x-1] != 0){
+				pacman.y++;
+			}
+			break;
+	}
+	if(pacman.direction == "l" && pacman.y == 11 && pacman.x == 0){
+		pacman.x = 19
+	}
+	else if(pacman.direction == "r" && pacman.y == 11 && pacman.x == 17){
+		pacman.x = 0
+	}
+}
+
+function changeDirection(key){
+	if(key.keyCode == "37"){
+		pacman.direction = "l";
+	}
+	else if(key.keyCode == "38"){
+		pacman.direction = "t";
+	}
+	else if(key.keyCode == "39"){
+		pacman.direction = "r";
+	}
+	else if(key.keyCode == "40"){
+		pacman.direction = "b";
+	}
+}
+
+function refreshPoints(){
+	document.getElementById("point").innerHTML = "Points : " + points
+}
+
 let pacman = {
-	y:2,
-	x:5,
-	direction:1
+	y:17,
+	x:10,
+	direction:"r"
 }
 
 function refresh(){
+	window.addEventListener("keydown", changeDirection, false);
+	positionpacman();
 	show();
 	showpacman();
-	//setTimeout(refresh, 1000)
+	refreshPoints();
+	setTimeout(refresh, 1000)
 }
 

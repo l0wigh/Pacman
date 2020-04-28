@@ -17,9 +17,24 @@
 	background-image: url(../myIMG/coin.png);
 }
 
-.pacman{
+.pacmanr{
 	background: black;
-	background-image: url(../myIMG/pacman-right.png)
+	background-image: url(../myIMG/pacman-right.gif)
+}
+
+.pacmanl{
+	background: black;
+	background-image: url(../myIMG/pacman-left.gif)
+}
+
+.pacmanb{
+	background: black;
+	background-image: url(../myIMG/pacman-bottom.gif)
+}
+
+.pacmant{
+	background: black;
+	background-image: url(../myIMG/pacman-top.gif)
 }
 
 .ghost{
