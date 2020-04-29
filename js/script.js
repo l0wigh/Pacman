@@ -1,4 +1,4 @@
-let maGrille = [
+let grilleOrigine = [
 	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 	[0,2,2,2,2,2,2,2,2,0,2,2,2,2,2,2,2,2,0],
 	[0,2,0,0,2,0,0,0,2,0,2,0,0,0,2,0,0,2,0],
@@ -24,33 +24,14 @@ let maGrille = [
 ];
 
 let container = document.getElementById("container");
-let points = 0;
-let bonbon = 1145;
-let win = 0;
 let fantomemove = ["lol", "r", "l", "t", "b"];
+let maGrille
+let points
+let bonbon
+let win
+let pacman
+let fantomelist
 
-let fantomelist = {
-	fan1:{
-		x:10,
-		y:10,
-		direction:"t"
-	},
-	fan2:{
-		x:10,
-		y:12,
-		direction:"b"
-	},
-	fan3:{
-		x:11,
-		y:11,
-		direction:"l"
-	},
-	fan4:{
-		x:9,
-		y:11,
-		direction:"r"
-	},
-}
 
 function show(){
 	container.innerHTML = "";
@@ -187,7 +168,6 @@ function pacHittingFan(){
 	}
 }
 
-
 function changeDirection(key){
 	if(key.keyCode == "37"){
 		pacman.direction = "l";
@@ -225,10 +205,42 @@ function winningCondition(){
 	}
 }
 
-let pacman = {
-	y:17,
-	x:10,
-	direction:"r"
+function newGame(){
+	maGrille = grilleOrigine.map(function(arr) {
+    	return arr.slice();
+	});
+	document.getElementById("mort").innerHTML = "";
+	points = 0;
+	bonbon = 1145;
+	win = 0;
+	pacman = {
+		y:17,
+		x:10,
+		direction:"r"
+	}
+	fantomelist = {
+		fan1:{
+			x:10,
+			y:10,
+			direction:"t"
+		},
+		fan2:{
+			x:10,
+			y:12,
+			direction:"b"
+		},
+		fan3:{
+			x:11,
+			y:11,
+			direction:"l"
+		},
+		fan4:{
+			x:9,
+			y:11,
+			direction:"r"
+		}
+	}
+	refresh()
 }
 
 function refresh(){
@@ -236,7 +248,7 @@ function refresh(){
 		document.getElementById("mort").innerHTML = "Vous avez perdu";
 	}
 	else if(pacman.y == 1 && pacman.x == 1 && win == 1){
-		document.getElementById("mort").innerHTML = "Vous avez perdu";
+		document.getElementById("mort").innerHTML = "Vous avez gagné";
 	}
 	else{
 		window.addEventListener("keydown", changeDirection, false);
@@ -252,4 +264,3 @@ function refresh(){
 		setTimeout(refresh,250)
 	}
 }
-
